@@ -7,6 +7,7 @@
 :root {
     --primary: #bdbfbe;
     --secondary: #181818;
+    --border: #212121;
 }
 
 ::-webkit-scrollbar {
@@ -40,6 +41,47 @@ body {
     height: 100%;
     background-color: #000;
     flex-shrink: 0;
+}
+
+.profil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    gap: 5rem;
+}
+
+.profil_content {
+    display: inherit;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profil_content_avatar {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid var(--border);
+}
+
+.profil_content_name {
+    margin-top: 1.2rem;
+}
+.profil_content_name p {
+    text-align: center;
+}
+.profil_content_name .name {
+    font-size: 5rem;
+}
+
+.profil_content_avatar img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    pointer-events: none;
 }
 
 .archive_slider {

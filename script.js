@@ -52,7 +52,7 @@ const handleLenisScroll = () => {
     const lastImage = archive.figures[archive.figures.length - 1];
     const galleryIndex = document.querySelector('.gallery-index-curved');
     
-    const firstImageRect = firstImage.getBoundingClientRect();
+    //const firstImageRect = firstImage.getBoundingClientRect();
     const secondImageRect = secondImage.getBoundingClientRect();
     const lastImageRect = lastImage.getBoundingClientRect();
 

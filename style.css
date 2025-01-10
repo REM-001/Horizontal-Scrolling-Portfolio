@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #bdbfbe;
+    --secondary: #181818;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    font-size: calc(100vw / 1920 * 10);
+}
+
+body {
+    font-family: 'Primary';
+    background-color: var(--primary);
+    color: var(--secondary);
+    overflow-x: hidden;
+}
+
+
+
+.archive {
+    position: relative;
+    width: max-content;
+    height: 100dvh;
+    display: flex;
+    overflow: hidden;
+}
+
+.archive_edge {
+    position: relative;
+    width: 50vw;
+    height: 100%;
+    background-color: #000;
+    flex-shrink: 0;
+}
+
+.archive_slider {
+    display: flex;
+    height: inherit;
+}
+
+.archive_slider_figure {
+    position: relative;
+    width: 50vw;
+    height: inherit;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.archive_slider_image {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-index-curved {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 260px; /* Adjusted for the circle size */
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease; /* Smooth fade-out */
+}
+
+.gallery-index-curved {
+    opacity: 1;
+    transition: opacity 0.3s ease; /* Smooth fade-in */
+}
+
+
+
+.index-item {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    pointer-events: auto; /* Enable click events on thumbnails */
+}
+
+.index-image-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 50%; /* Ensure the image is circular */
+}
+
+.index-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    transition: all 0.3s ease;
+    filter: grayscale(100%);
+    mix-blend-mode: difference;
+}
+
+.index-item.active {
+    border: 2px solid rgba(255, 255, 255, 1);
+    transform: scale(1.2); /* Highlight the active item */
+}
+
+.index-item.active .index-image {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+@media screen and (max-width: 768px) {
+    .gallery-index-curved {
+        width: 150px;
+        height: 150px;
+    }
+
+    .index-item {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+
+
+@media screen and (max-width: 768px) {
+    html {
+        font-size: calc(100vw / 768 * 10);
+    }
+
+    .archive_slider_figure {
+        width: 100vw;
+    }
+
+    .archive_edge {
+        width: 100vw;
+    }
+}

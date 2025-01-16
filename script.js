@@ -1,5 +1,3 @@
-import Lenis from 'https://cdn.skypack.dev/lenis';
-
 let lenis;
 let rotationAngle = 0;
 let currentRotation = 0;
@@ -51,39 +49,26 @@ const handleLenisScroll = () => {
     const secondImage = archive.figures[1];
     const lastImage = archive.figures[archive.figures.length - 1];
     const galleryIndex = document.querySelector('.gallery-index-curved');
-    
-    //const firstImageRect = firstImage.getBoundingClientRect();
+
     const secondImageRect = secondImage.getBoundingClientRect();
     const lastImageRect = lastImage.getBoundingClientRect();
 
-    // Calculate visibility thresholds
     const hasPassedFirstImage = secondImageRect.left <= window.innerWidth;
     const isNearEnd = lastImageRect.right <= window.innerWidth * 1.5;
+    const hasReachedEnd = lastImageRect.right <= window.innerWidth;
 
-    // Set initial visibility to none
-    if (!hasPassedFirstImage && !isNearEnd) {
-        galleryIndex.style.opacity = '0';
-        galleryIndex.style.visibility = 'hidden';
+    if (!hasPassedFirstImage || hasReachedEnd) {
+        galleryIndex.classList.remove('visible');
     } else {
-        galleryIndex.style.visibility = 'visible';
-        
+        galleryIndex.classList.add('visible');
+
         if (hasPassedFirstImage && !isNearEnd) {
-            // Fade in after first image
-            const opacity = Math.min(1, (window.innerWidth - secondImageRect.left) / window.innerWidth);
-            galleryIndex.style.opacity = opacity;
-            
-            // Rotate the gallery index with smoothing
             rotationAngle += settings.rotationSpeed;
             currentRotation = lerp(currentRotation, rotationAngle, settings.rotationLerp);
             galleryIndex.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-        } else if (isNearEnd) {
-            // Fade out near the end
-            const opacity = Math.max(0, (lastImageRect.right - window.innerWidth) / (window.innerWidth * 0.5));
-            galleryIndex.style.opacity = opacity;
         }
     }
 
-    // Update scale effect for each image
     archive.figures.forEach((figure) => {
         const image = figure.querySelector('.archive_slider_image');
         const figureRect = figure.getBoundingClientRect();
@@ -105,15 +90,10 @@ const initCurvedGalleryIndex = () => {
     const container = document.querySelector('.gallery-index-curved');
     const totalSlides = archive.figures.length;
     
-    // Set initial state to hidden
-    container.style.opacity = '0';
-    container.style.visibility = 'hidden';
+    container.classList.remove('visible');
     container.style.transform = 'translate(-50%, -50%) rotate(0deg)';
-
-    // Clear the container
     container.innerHTML = '';
 
-    // Create index items for the gallery
     archive.figures.forEach((figure, i) => {
         const indexItem = document.createElement('div');
         indexItem.className = 'index-item';
@@ -128,11 +108,9 @@ const initCurvedGalleryIndex = () => {
         imageContainer.appendChild(indexImage);
         indexItem.appendChild(imageContainer);
 
-        // Calculate position on circle
         const angle = (i / totalSlides) * 2 * Math.PI;
-        const radius = settings.radius;
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
+        const x = Math.cos(angle) * settings.radius;
+        const y = Math.sin(angle) * settings.radius;
 
         indexItem.style.transform = `translate(${x}px, ${y}px)`;
 

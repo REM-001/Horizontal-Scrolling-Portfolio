@@ -20,12 +20,10 @@ html {
 
 body {
     font-family: 'Primary';
-    background-color: var(--primary);
+    background-color: black;
     color: var(--secondary);
     overflow-x: hidden;
 }
-
-
 
 .archive {
     position: relative;
@@ -33,13 +31,14 @@ body {
     height: 100dvh;
     display: flex;
     overflow: hidden;
+    z-index: 300;
 }
 
 .archive_edge {
     position: relative;
     width: 50vw;
     height: 100%;
-    background-color: #000;
+    background-color: transparent;
     flex-shrink: 0;
 }
 
@@ -47,16 +46,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;;
+    height: 100%;
     position: relative;
     width: 50vw;
     max-width: 100%;
-    background-color: #000;
+    background-color: transparent;
     flex-shrink: 0;
 }
-.archive_edge_intro_text  {
+
+.archive_edge_intro_text {
     padding: 2rem;
 }
+
 .archive_edge_intro p {
     display: inline-flex;
     flex-direction: column;
@@ -66,6 +67,10 @@ body {
     font-size: clamp(3rem, 2vw, 3.5rem);
     text-wrap: balance;
     text-align: center;
+}
+.archive_slider {
+    display: block;
+    z-index: 600;
 }
 
 .profil {
@@ -83,7 +88,6 @@ body {
     color: white;
 }
 
-
 .profil_content {
     display: inherit;
     flex-direction: column;
@@ -94,33 +98,35 @@ body {
 .profil_content_avatar {
     width: 200px;
     height: auto;
-    border-radius: 50%;
     overflow: hidden;
-    border: 5px solid var(--border);
-}
-
-.profil_content_name {
-    margin-top: 1.2rem;
-}
-.profil_content_name p {
-    text-align: center;
-}
-.profil_content_name .name {
-    font-size: 5rem;
-    color: #f1f1f1;
-}
-.profil_content_name .description {
-    color: gray;
-    font-size: 1.8rem;
-    margin-top: 1rem;
 }
 
 .profil_content_avatar img {
+    filter: invert(1);
     display: block;
     height: 100%;
     width: 100%;
     object-fit: cover;
     pointer-events: none;
+}
+
+.profil_content_name {
+    margin-top: 1.2rem;
+}
+
+.profil_content_name p {
+    text-align: center;
+}
+
+.profil_content_name .name {
+    font-size: 5rem;
+    color: #f1f1f1;
+}
+
+.profil_content_name .description {
+    color: gray;
+    font-size: 1.8rem;
+    margin-top: 1rem;
 }
 
 .archive_slider {
@@ -149,27 +155,20 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 260px; /* Adjusted for the circle size */
+    width: 260px;
     height: 260px;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 400;
     pointer-events: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-.hidden {
     opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease; /* Smooth fade-out */
 }
 
-.gallery-index-curved {
+.gallery-index-curved.visible {
     opacity: 1;
-    transition: opacity 0.3s ease; /* Smooth fade-in */
 }
-
-
 
 .index-item {
     position: absolute;
@@ -178,14 +177,15 @@ body {
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     transition: all 0.3s ease;
-    pointer-events: auto; /* Enable click events on thumbnails */
+    pointer-events: auto;
+    overflow: hidden;
 }
 
 .index-image-container {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-radius: 50%; /* Ensure the image is circular */
+    border-radius: 50%;
 }
 
 .index-image {
@@ -200,7 +200,7 @@ body {
 
 .index-item.active {
     border: 2px solid rgba(255, 255, 255, 1);
-    transform: scale(1.2); /* Highlight the active item */
+    transform: scale(1.2);
 }
 
 .index-item.active .index-image {
@@ -208,7 +208,98 @@ body {
     filter: grayscale(0%);
 }
 
+.vector-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    inline-size: min(240%, 100vw);
+    margin-block: auto;
+}
+
+.archive_edge-end {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+    height: 100%;
+    position: relative;
+    width: 50vw;
+    max-width: 100%;
+    background-color: transparent;
+    flex-shrink: 0;
+    padding: 2rem;
+}
+.archive_edge-end_text {
+    color: white;
+    font-size: 5rem;
+    text-align: center;
+} 
+
+.feedback-input {
+    color:white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight:500;
+    font-size: 18px;
+    border-radius: 5px;
+    line-height: 22px;
+    background-color: transparent;
+    border:2px solid #CC6666;
+    transition: all 0.3s;
+    padding: 13px;
+    margin-bottom: 15px;
+    width:100%;
+    box-sizing: border-box;
+    outline:0;
+  }
+  
+  .feedback-input:focus { border:2px solid #EF1C00; }
+  
+  textarea {
+    height: 150px;
+    line-height: 150%;
+    resize:vertical;
+  }
+  
+  [type="submit"] {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    width: 100%;
+    background:#CC6666;
+    border-radius:5px;
+    border:0;
+    cursor:pointer;
+    color:white;
+    font-size:24px;
+    padding-top:10px;
+    padding-bottom:10px;
+    transition: all 0.3s;
+    margin-top:-4px;
+    font-weight:700;
+  }
+  [type="submit"]:hover { background:#EF1C00; }
+
+
+  .logo_brand {
+    width: 200px;
+    height: auto;
+    overflow: hidden;
+  }
+  .logo_brand img {
+    filter: invert(1);
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
 @media screen and (max-width: 768px) {
+    html {
+        font-size: calc(100vw / 768 * 10);
+    }
+
     .gallery-index-curved {
         width: 150px;
         height: 150px;
@@ -218,16 +309,8 @@ body {
         width: 20px;
         height: 20px;
     }
+
     .archive_edge_intro_text {
-        display: none;
-    }
-}
-
-
-
-@media screen and (max-width: 768px) {
-    html {
-        font-size: calc(100vw / 768 * 10);
     }
 
     .archive_slider_figure {
@@ -237,4 +320,13 @@ body {
     .archive_edge {
         width: 100vw;
     }
+
+    .profil_content_avatar {
+        display: none;
+    }
+
+    .logo {
+        display: block;
+    }
 }
+
